@@ -1,7 +1,7 @@
 .. deshift documentation main file
 
 Deshift
-===============
+==============
 
 This library is built to perform distributionally robust optimization (DRO) within existing PyTorch workflows with a single additional line of code.
 The focus is on spectral risk measure-based learning which is described in detail in `this AISTATS 2023 paper <https://proceedings.mlr.press/v206/mehta23b.html>`_
