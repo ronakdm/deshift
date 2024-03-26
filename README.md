@@ -18,7 +18,7 @@ Additional dependencies to run the example in `examples/train_fashion_mnist.ipyn
 
 A detailed quickstart example is present in the docs `docs/source/quickstart.ipynb`. At a glance, the functionality is a follows. First, we construct a function that inputs a vector of losses and returns a probability distribution over elements in this loss vector.
 ```
->>> from deshift import make_spectral_risk_measure, make_extremile_spectrum
+>>> from deshift import make_spectral_risk_measure, make_superquantile_spectrum
 >>> spectrum = make_superquantile_spectrum(batch_size, 2.0)
 >>> compute_sample_weight = make_spectral_risk_measure(spectrum, penalty="chi2", shift_cost=1.0)
 ```
