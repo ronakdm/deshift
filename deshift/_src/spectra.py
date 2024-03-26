@@ -21,7 +21,9 @@ def make_superquantile_spectrum(batch_size: int, tail_prob: float):
             "positive and less than 1. "
             f"Found 'tail_prob'={tail_prob}"
             )
-    spectrum = np.zeros(batch_size, dtype=np.float64)
+    elif tail_prob > 1. - 1e-12:
+        return np.ones(batch_size, dtype=np.float32) / batch_size
+    spectrum = np.zeros(batch_size, dtype=np.float32)
     idx = math.floor(batch_size * tail_prob)
     frac = 1 - (batch_size - idx - 1) / (batch_size * (1 - tail_prob))
     if frac > 1e-12:
