@@ -6,7 +6,7 @@ Deshift
 This library is built to perform distributionally robust optimization (DRO) within existing PyTorch workflows with a single additional line of code.
 The focus is on spectral risk measure-based learning which is described in detail in `this AISTATS 2023 paper <https://proceedings.mlr.press/v206/mehta23b.html>`_
 and `this ICLR 2024 paper <https://arxiv.org/abs/2310.13863>`_ (Spotlight Presentation). Distributionally robust objectives apply a sample reweighting to the 
-observerd training data within each mini-batch inorder to robustify models against distribution shifts that occur at test time. The main features are:
+observed training data within each mini-batch in order to robustify models against distribution shifts that occur at test time. The main features are:
 
 * Implementations of the superquantile/conditional value-at-risk (CVaR), extremile, and exponential spectral risk measures.
 * Implementations of the pool adjacent violators (PAV) algorithm for computing regularized spectral risk measures with Kullback-Leibler and Chi-Squared divergences.
