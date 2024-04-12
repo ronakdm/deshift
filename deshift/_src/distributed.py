@@ -4,8 +4,7 @@ import torch.distributed as dist
 
 def ddp_dmo(dmo, losses, rank, world_size, src_device="cuda:0"):
     # quantilize the current micro-batch of losses
-    # sort, argsort = torch.sort(losses, stable=True) # TODO: quantilized version
-    sort = losses
+    sort, argsort = torch.sort(losses, stable=True)
     micro_size = len(sort)
 
     # allocate memory for full vector of losses then gather
@@ -22,5 +21,4 @@ def ddp_dmo(dmo, losses, rank, world_size, src_device="cuda:0"):
     q_batch = torch.zeros(micro_size).to(f"cuda:{rank}")
     dist.scatter(q_batch, scatter_list=scatter_list, src=0)
 
-    # return q_batch[torch.argsort(argsort)]
-    return q_batch # TODO: quantilized version
+    return q_batch[torch.argsort(argsort)]
