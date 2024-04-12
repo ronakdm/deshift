@@ -70,6 +70,7 @@ def reflection_oracle_ref(
 
 def project_odd(v):
     u = v.clone() 
+    mids = []
     if len(u) >= 2:
         evens = v[1::2]
         odds = v[0:2*len(evens):2]
@@ -79,10 +80,11 @@ def project_odd(v):
             evens[odds > evens] = mids
             u[1::2] = evens
             u[0:2*len(evens):2] = odds
-    return u
+    return u, len(mids)
 
 def project_even(v):
     u = v.clone()
+    mids = []
     if len(u) >= 3:
         odds = v[2::2]
         evens = v[1:2*len(odds):2]
@@ -92,27 +94,27 @@ def project_even(v):
             evens[evens > odds] = mids
             u[2::2] = odds
             u[1:2*len(odds):2] = evens
-    return u
+    return u, len(mids)
 
-def project_monotone_cone(v, max_iter=20):
+def project_monotone_cone(v, max_iter=16):
     """
     dykstra's projection algorithm
     """
     n = len(v)
     z = v.clone()
-    p = torch.zeros(n)
-    q = torch.zeros(n)
+    p = torch.zeros(n, device=v.get_device())
+    q = torch.zeros(n, device=v.get_device())
 
     for _ in range(max_iter):
         z_prev = z.clone()
 
-        y = project_even(z + p)
+        y, even_changes = project_even(z + p)
         p = z + p - y
-        z = project_odd(y + q)
+        z, odd_changes = project_odd(y + q)
         q = y + q - z
 
         error = torch.norm(z - z_prev)
-        if error < 1e-8:
+        if even_changes + odd_changes == 0 or error < 1e-8:
             break
     return z
 
