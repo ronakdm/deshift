@@ -70,31 +70,31 @@ def reflection_oracle_ref(
 
 def project_odd(v):
     u = v.clone() 
-    if len(u) < 2:
-        return u
-    evens = v[1::2]
-    odds = v[0:2*len(evens):2]
-    mids = (odds[odds > evens] + evens[odds > evens]) / 2.
-    odds[odds > evens] = mids
-    evens[odds > evens] = mids
-    u[1::2] = evens
-    u[0:2*len(evens):2] = odds
+    if len(u) >= 2:
+        evens = v[1::2]
+        odds = v[0:2*len(evens):2]
+        if torch.any(odds > evens):
+            mids = (odds[odds > evens] + evens[odds > evens]) / 2.
+            odds[odds > evens] = mids
+            evens[odds > evens] = mids
+            u[1::2] = evens
+            u[0:2*len(evens):2] = odds
     return u
 
 def project_even(v):
     u = v.clone()
-    if len(u) < 3:
-        return u
-    odds = v[2::2]
-    evens = v[1:2*len(odds):2]
-    mids = (odds[evens > odds] + evens[evens > odds]) / 2.
-    odds[evens > odds] = mids
-    evens[evens > odds] = mids
-    u[2::2] = odds
-    u[1:2*len(odds):2] = evens
+    if len(u) >= 3:
+        odds = v[2::2]
+        evens = v[1:2*len(odds):2]
+        if torch.any(evens > odds):
+            mids = (odds[evens > odds] + evens[evens > odds]) / 2.
+            odds[evens > odds] = mids
+            evens[evens > odds] = mids
+            u[2::2] = odds
+            u[1:2*len(odds):2] = evens
     return u
 
-def project_monotone_cone(v, max_iter=10):
+def project_monotone_cone(v, max_iter=20):
     """
     dykstra's projection algorithm
     """
@@ -104,11 +104,16 @@ def project_monotone_cone(v, max_iter=10):
     q = torch.zeros(n)
 
     for _ in range(max_iter):
+        z_prev = z.clone()
+
         y = project_even(z + p)
         p = z + p - y
         z = project_odd(y + q)
         q = y + q - z
 
+        error = torch.norm(z - z_prev)
+        if error < 1e-8:
+            break
     return z
 
 
