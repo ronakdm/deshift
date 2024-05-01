@@ -15,6 +15,7 @@ def make_superquantile_spectrum(batch_size: int, tail_prob: float):
       spectrum
         a sorted vector of ``n`` weights on each training example.
     """
+    assert type(batch_size) == int
     if tail_prob < 0. or tail_prob > 1.:
         raise ValueError(
             "The proportion of largest elements to keep, tail_prob must be "
@@ -58,9 +59,10 @@ def make_extremile_spectrum(batch_size: int, n_draws: float):
             "must be positive 0.. "
             f"Found 'n_draws'={n_draws}"
         )
+    assert type(batch_size) == int
     spectrum = (
-        (np.arange(batch_size, dtype=np.float64) + 1) ** n_draws
-        - np.arange(batch_size, dtype=np.float64) ** n_draws
+        (np.arange(batch_size, dtype=np.float32) + 1) ** n_draws
+        - np.arange(batch_size, dtype=np.float32) ** n_draws
     ) / (batch_size ** n_draws)
     return spectrum
 
@@ -78,7 +80,8 @@ def make_esrm_spectrum(batch_size: int, risk_param: float):
       spectrum
         a sorted vector of ``n`` weights on each training example.
     """
-    #TODO(ronakdm): add a check for the value of risk_param
-    upper = np.exp(risk_param * ((np.arange(batch_size, dtype=np.float64) + 1) / batch_size))
-    lower = np.exp(risk_param * (np.arange(batch_size, dtype=np.float64) / batch_size))
+    assert type(batch_size) == int
+    assert risk_param >= 0.0
+    upper = np.exp(risk_param * ((np.arange(batch_size, dtype=np.float32) + 1) / batch_size))
+    lower = np.exp(risk_param * (np.arange(batch_size, dtype=np.float32) / batch_size))
     return math.exp(-risk_param) * (upper - lower) / (1 - math.exp(-risk_param))

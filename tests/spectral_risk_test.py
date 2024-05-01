@@ -1,4 +1,4 @@
-"""Tests for Pool Adjacent Violator Algorithm."""
+"""Tests for PAVA-based spectral risk measure methods."""
 
 from absl.testing import absltest
 

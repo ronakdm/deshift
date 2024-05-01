@@ -24,7 +24,14 @@ def make_spectral_risk_measure(
       compute_sample_weight
         a function that maps ``n`` losses to a vector of ``n`` weights on each training example.
     """
-    return partial(spectral_risk_measure_maximization_oracle, spectrum, shift_cost, penalty)
+    def max_oracle(losses):
+        assert torch.is_tensor(losses), "`losses` must be a PyTorch tensor"
+        with torch.no_grad():
+            device = losses.get_device()
+            device = device if device >= 0 else "cpu"
+            weights = spectral_risk_measure_maximization_oracle(spectrum, shift_cost, penalty, losses.cpu().numpy())
+        return weights.to(device)
+    return max_oracle
 
 def spectral_risk_measure_maximization_oracle(
         spectrum: np.ndarray, 

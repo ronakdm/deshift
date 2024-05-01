@@ -27,8 +27,7 @@ Assume that we have computed a vector of losses based on a model output in PyTor
 >>> x, y = get_batch()
 >>> logits = model(x)
 >>> losses = torch.nn.functional.cross_entropy(logits, y, reduction="none")
->>> with torch.no_grad():
->>>     weights = compute_sample_weight(losses.cpu().numpy()).to(device)
+>>> weights = compute_sample_weight(losses)
 >>> loss = weights @ losses
 >>> loss.backward()
 ```
