@@ -23,8 +23,6 @@ def ddp_max_oracle(max_oracle, losses, src_device=0):
     rank = int(os.environ["LOCAL_RANK"])
     world_size = int(os.environ["WORLD_SIZE"])
     micro_size = len(losses)
-    # assert len(micro_sizes) == world_size, f"number of processes ({world_size}) should be equal to number of micro-batch sizes ({len(micro_sizes)})"
-    # assert micro_sizes[rank] == len(losses), f"number of losses ({len(losses)}) supplied should be equal to element {rank} of micro_sizes"
 
     # quantilize the current micro-batch of losses
     sort, argsort = torch.sort(losses, stable=True)
@@ -37,10 +35,6 @@ def ddp_max_oracle(max_oracle, losses, src_device=0):
     q_batch = torch.zeros(micro_size).to(f"cuda:{rank}")
     if rank == 0:
         q = max_oracle(torch.cat(gather_list))
-        # _micro_sizes = [0]
-        # for i, m in enumerate(micro_sizes):
-        #   _micro_sizes.append(_micro_sizes[i] + int(m))
-        # scatter_list = [q[_micro_sizes[r]: _micro_sizes[r + 1]].to(src_device) for r in range(world_size)]
         scatter_list = [q[micro_size * r: micro_size * (r + 1)].to(src_device) for r in range(world_size)]
         dist.scatter(q_batch, scatter_list=scatter_list, src=src_device)
     else:
