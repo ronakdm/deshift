@@ -3,8 +3,8 @@ import torch.distributed as dist
 import os
 
 def ddp_max_oracle(max_oracle, losses, src_device=0):
-    """Take any existing maximization oracle and apply it to multiple devices using a gather-scatter implementation.
-    Assumes that process rank is discoverable,~e.g. the job is run using `torchrun`.
+    """Take any existing maximization oracle and apply it to multiple devices using a gather-scatter implementation
+    within the data distributed parallel (DDP) framework. Assumes that process rank is discoverable, e.g. the job is run using `torchrun`.
     
     Args:
       max_oracle: a function that consumes ``n`` (full-batch size) loss values and returns ``n`` weights (where ``n == micro_size * n_gpus``)
