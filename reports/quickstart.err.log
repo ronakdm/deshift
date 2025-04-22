@@ -1,45 +1,50 @@
 Traceback (most recent call last):
-  File "/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
+  File "/opt/hostedtoolcache/Python/3.11.12/x64/lib/python3.11/site-packages/jupyter_cache/executors/utils.py", line 58, in single_nb_execution
     executenb(
-  File "/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/nbclient/client.py", line 1314, in execute
+  File "/opt/hostedtoolcache/Python/3.11.12/x64/lib/python3.11/site-packages/nbclient/client.py", line 1319, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
+  File "/opt/hostedtoolcache/Python/3.11.12/x64/lib/python3.11/site-packages/jupyter_core/utils/__init__.py", line 165, in wrapped
     return loop.run_until_complete(inner)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
+  File "/opt/hostedtoolcache/Python/3.11.12/x64/lib/python3.11/asyncio/base_events.py", line 654, in run_until_complete
     return future.result()
            ^^^^^^^^^^^^^^^
-  File "/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/nbclient/client.py", line 709, in async_execute
+  File "/opt/hostedtoolcache/Python/3.11.12/x64/lib/python3.11/site-packages/nbclient/client.py", line 709, in async_execute
     await self.async_execute_cell(
-  File "/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/nbclient/client.py", line 1062, in async_execute_cell
+  File "/opt/hostedtoolcache/Python/3.11.12/x64/lib/python3.11/site-packages/nbclient/client.py", line 1062, in async_execute_cell
     await self._check_raise_for_error(cell, cell_index, exec_reply)
-  File "/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
+  File "/opt/hostedtoolcache/Python/3.11.12/x64/lib/python3.11/site-packages/nbclient/client.py", line 918, in _check_raise_for_error
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-np.random.seed(123)
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
 
-losses = np.random.normal(size=(batch_size,))
-weights = compute_sample_weight(losses)
-
-print(weights[np.argsort(losses)])
+import sys
+sys.path.append("../..")
+from deshift import make_spectral_risk_measure, make_superquantile_spectrum
 ------------------
 
 
-[0;31m---------------------------------------------------------------------------[0m
-[0;31mAssertionError[0m                            Traceback (most recent call last)
-Cell [0;32mIn[4], line 4[0m
-[1;32m      1[0m np[38;5;241m.[39mrandom[38;5;241m.[39mseed([38;5;241m123[39m)
-[1;32m      3[0m losses [38;5;241m=[39m np[38;5;241m.[39mrandom[38;5;241m.[39mnormal(size[38;5;241m=[39m(batch_size,))
-[0;32m----> 4[0m weights [38;5;241m=[39m [43mcompute_sample_weight[49m[43m([49m[43mlosses[49m[43m)[49m
-[1;32m      6[0m [38;5;28mprint[39m(weights[np[38;5;241m.[39margsort(losses)])
+[31m---------------------------------------------------------------------------[39m
+[31mModuleNotFoundError[39m                       Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 7[39m
+[32m      5[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01msys[39;00m
+[32m      6[39m sys.path.append([33m"[39m[33m../..[39m[33m"[39m)
+[32m----> [39m[32m7[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mdeshift[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m make_spectral_risk_measure, make_superquantile_spectrum
 
-File [0;32m/opt/hostedtoolcache/Python/3.11.9/x64/lib/python3.11/site-packages/deshift/_src/spectral_risk.py:28[0m, in [0;36mmake_spectral_risk_measure.<locals>.max_oracle[0;34m(losses)[0m
-[1;32m     27[0m [38;5;28;01mdef[39;00m [38;5;21mmax_oracle[39m(losses):
-[0;32m---> 28[0m     [38;5;28;01massert[39;00m torch[38;5;241m.[39mis_tensor(losses), [38;5;124m"[39m[38;5;124m`losses` must be a PyTorch tensor[39m[38;5;124m"[39m
-[1;32m     29[0m     [38;5;28;01mwith[39;00m torch[38;5;241m.[39mno_grad():
-[1;32m     30[0m         device [38;5;241m=[39m losses[38;5;241m.[39mget_device()
+[36mFile [39m[32m/opt/hostedtoolcache/Python/3.11.12/x64/lib/python3.11/site-packages/deshift/__init__.py:12[39m
+[32m      9[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mdeshift[39;00m[34;01m.[39;00m[34;01m_src[39;00m[34;01m.[39;00m[34;01mspectra[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m make_extremile_spectrum
+[32m     10[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mdeshift[39;00m[34;01m.[39;00m[34;01m_src[39;00m[34;01m.[39;00m[34;01mspectra[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m make_superquantile_spectrum
+[32m---> [39m[32m12[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mdebugpy[39;00m[34;01m.[39;00m[34;01m_src[39;00m[34;01m.[39;00m[34;01mdistributed[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m ddp_max_oracle
+[32m     14[39m __version__ = [33m"[39m[33m0.0.1.dev[39m[33m"[39m
+[32m     16[39m __all__ =[
+[32m     17[39m   [33m"[39m[33ml2_centered_isotonic_regression[39m[33m"[39m,
+[32m     18[39m   [33m"[39m[33mneg_entropy_centered_isotonic_regression[39m[33m"[39m, 
+[32m   (...)[39m[32m     24[39m   [33m"[39m[33mddp_max_oracle[39m[33m"[39m,
+[32m     25[39m ]
 
-[0;31mAssertionError[0m: `losses` must be a PyTorch tensor
+[31mModuleNotFoundError[39m: No module named 'debugpy._src'
 
