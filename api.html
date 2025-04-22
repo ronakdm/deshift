@@ -301,15 +301,32 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-risk-measure">Create risk measure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-risk-measure">Create risk measure</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_spectral_risk_measure"><code class="docutils literal notranslate"><span class="pre">make_spectral_risk_measure()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.spectral_risk_measure_maximization_oracle"><code class="docutils literal notranslate"><span class="pre">spectral_risk_measure_maximization_oracle()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-maximization-oracles">Dual maximization oracles</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pool-adjacent-violator-algorithm">Pool adjacent violator algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pool-adjacent-violator-algorithm">Pool adjacent violator algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.l2_centered_isotonic_regression"><code class="docutils literal notranslate"><span class="pre">l2_centered_isotonic_regression()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.neg_entropy_centered_isotonic_regression"><code class="docutils literal notranslate"><span class="pre">neg_entropy_centered_isotonic_regression()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrums">Spectrums</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extremile">Extremile</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superquantile">Superquantile</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-spectral-risk-measure">Exponential spectral risk measure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extremile">Extremile</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_extremile_spectrum"><code class="docutils literal notranslate"><span class="pre">make_extremile_spectrum()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superquantile">Superquantile</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_superquantile_spectrum"><code class="docutils literal notranslate"><span class="pre">make_superquantile_spectrum()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-spectral-risk-measure">Exponential spectral risk measure</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_esrm_spectrum"><code class="docutils literal notranslate"><span class="pre">make_esrm_spectrum()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -327,28 +344,215 @@ document.write(`
 <h1>📖 API<a class="headerlink" href="#api" title="Link to this heading">#</a></h1>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.l2_centered_isotonic_regression" title="deshift.l2_centered_isotonic_regression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">l2_centered_isotonic_regression</span></code></a>(losses, spectrum)</p></td>
+<td><p>Solution to the isotonic regression problem when using the centered l2 loss.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#deshift.neg_entropy_centered_isotonic_regression" title="deshift.neg_entropy_centered_isotonic_regression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">neg_entropy_centered_isotonic_regression</span></code></a>(...)</p></td>
+<td><p>Solution to the isotonic regression problem when using the centered negative entropy loss.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.make_esrm_spectrum" title="deshift.make_esrm_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_esrm_spectrum</span></code></a>(batch_size, risk_param)</p></td>
+<td><p>Create a spectrum based on the exponential spectral risk measure (ESRM) for <code class="docutils literal notranslate"><span class="pre">n</span></code> samples.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#deshift.make_extremile_spectrum" title="deshift.make_extremile_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_extremile_spectrum</span></code></a>(batch_size, n_draws)</p></td>
+<td><p>Create a spectrum based on the extremile for <code class="docutils literal notranslate"><span class="pre">n</span></code> samples.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.make_spectral_risk_measure" title="deshift.make_spectral_risk_measure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_spectral_risk_measure</span></code></a>(spectrum[, ...])</p></td>
+<td><p>Create a function which computes the sample weights from a vector of losses when using a spectral risk measure ambiguity set.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#deshift.make_superquantile_spectrum" title="deshift.make_superquantile_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_superquantile_spectrum</span></code></a>(batch_size, ...)</p></td>
+<td><p>Create a spectrum based on the superquantile (or conditional value-at-risk) for <code class="docutils literal notranslate"><span class="pre">n</span></code> samples.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.spectral_risk_measure_maximization_oracle" title="deshift.spectral_risk_measure_maximization_oracle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spectral_risk_measure_maximization_oracle</span></code></a>(...)</p></td>
+<td><p>Maximization oracle to compute the sample weights based on a particular spectral risk measure objective.</p></td>
+</tr>
 </tbody>
 </table>
 </div>
 <section id="create-risk-measure">
 <h2>Create risk measure<a class="headerlink" href="#create-risk-measure" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="deshift.make_spectral_risk_measure">
+<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">make_spectral_risk_measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'chi2'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_cost</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.make_spectral_risk_measure" title="Link to this definition">#</a></dt>
+<dd><p>Create a function which computes the sample weights from a vector of losses when using a spectral risk measure ambiguity set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> – a Numpy array containing the spectrum weights,
+which should be the same length as the batch size.</p></li>
+<li><p><strong>penalty</strong> – either ‘chi2’ or ‘kl’ indicating which f-divergence
+to use as the dual regularizer.</p></li>
+<li><p><strong>shift_cost</strong> – ehe non-negative dual regularization parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>compute_sample_weight</dt><dd><p>a function that maps <code class="docutils literal notranslate"><span class="pre">n</span></code> losses to a vector of <code class="docutils literal notranslate"><span class="pre">n</span></code> weights on each training example.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deshift.spectral_risk_measure_maximization_oracle">
+<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">spectral_risk_measure_maximization_oracle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_cost</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.spectral_risk_measure_maximization_oracle" title="Link to this definition">#</a></dt>
+<dd><p>Maximization oracle to compute the sample weights based on a particular spectral risk measure objective.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> – a Numpy array containing the spectrum weights,
+which should be the same length as the batch size.</p></li>
+<li><p><strong>shift_cost</strong> – a non-negative dual regularization parameter.</p></li>
+<li><p><strong>penalty</strong> – either <code class="docutils literal notranslate"><span class="pre">chi2</span></code> or <code class="docutils literal notranslate"><span class="pre">kl</span></code> indicating which f-divergence
+to use as the dual regularizer.</p></li>
+<li><p><strong>losses</strong> – a Numpy array containing the loss incurred by the model
+on each example in the batch.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>sample_weight</dt><dd><p>a vector of <code class="docutils literal notranslate"><span class="pre">n</span></code> weights on each training example.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="dual-maximization-oracles">
 <h2>Dual maximization oracles<a class="headerlink" href="#dual-maximization-oracles" title="Link to this heading">#</a></h2>
 <section id="pool-adjacent-violator-algorithm">
 <h3>Pool adjacent violator algorithm<a class="headerlink" href="#pool-adjacent-violator-algorithm" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="deshift.l2_centered_isotonic_regression">
+<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">l2_centered_isotonic_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.l2_centered_isotonic_regression" title="Link to this definition">#</a></dt>
+<dd><p>Solution to the isotonic regression problem when using the centered l2 loss.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> – a Numpy array containing the spectrum weights,
+which should be the same length as the batch size.</p></li>
+<li><p><strong>losses</strong> – a Numpy array containing the loss on each example in the batch.
+These are the labels for isotonic regression.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>sample_weight</dt><dd><p>a set of <code class="docutils literal notranslate"><span class="pre">n</span></code> weights on each training example in the batch.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="deshift.neg_entropy_centered_isotonic_regression">
+<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">neg_entropy_centered_isotonic_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.neg_entropy_centered_isotonic_regression" title="Link to this definition">#</a></dt>
+<dd><p>Solution to the isotonic regression problem when using the centered negative entropy loss.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> – a Numpy array containing the spectrum weights,
+which should be the same length as the batch size.</p></li>
+<li><p><strong>losses</strong> – a Numpy array containing the loss on each example in the batch.
+These are the labels for isotonic regression.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>sample_weight</dt><dd><p>a set of <code class="docutils literal notranslate"><span class="pre">n</span></code> weights on each training example in the batch.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 <section id="spectrums">
 <h2>Spectrums<a class="headerlink" href="#spectrums" title="Link to this heading">#</a></h2>
 <section id="extremile">
 <h3>Extremile<a class="headerlink" href="#extremile" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="deshift.make_extremile_spectrum">
+<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">make_extremile_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_draws</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.make_extremile_spectrum" title="Link to this definition">#</a></dt>
+<dd><p>Create a spectrum based on the extremile for <code class="docutils literal notranslate"><span class="pre">n</span></code> samples.</p>
+<p>The spectrum is chosen so that the expectation of the loss vector
+under this spectrum equals the uniform expected maximum of <code class="docutils literal notranslate"><span class="pre">n_draws</span></code>
+elements from the loss vector.</p>
+<p>See [Dauoia (2019)](<a class="reference external" href="https://www.tandfonline.com/doi/full/10.1080/01621459.2018.1498348">https://www.tandfonline.com/doi/full/10.1080/01621459.2018.1498348</a>) for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_size</strong> – the batch size.</p></li>
+<li><p><strong>n_draws</strong> – the number of independent draws from the
+loss vector. It can be fractional.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>spectrum</dt><dd><p>a sorted vector of <code class="docutils literal notranslate"><span class="pre">n</span></code> weights on each training example.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="superquantile">
 <h3>Superquantile<a class="headerlink" href="#superquantile" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="deshift.make_superquantile_spectrum">
+<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">make_superquantile_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tail_prob</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.make_superquantile_spectrum" title="Link to this definition">#</a></dt>
+<dd><p>Create a spectrum based on the superquantile (or conditional value-at-risk) for <code class="docutils literal notranslate"><span class="pre">n</span></code> samples.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_size</strong> – the batch size.</p></li>
+<li><p><strong>tail_prob</strong> – the proportion of largest elements to keep
+in the loss computation, i.e. <code class="docutils literal notranslate"><span class="pre">k/n</span></code> for the top-k loss.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>spectrum</dt><dd><p>a sorted vector of <code class="docutils literal notranslate"><span class="pre">n</span></code> weights on each training example.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 <section id="exponential-spectral-risk-measure">
 <h3>Exponential spectral risk measure<a class="headerlink" href="#exponential-spectral-risk-measure" title="Link to this heading">#</a></h3>
+<dl class="py function">
+<dt class="sig sig-object py" id="deshift.make_esrm_spectrum">
+<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">make_esrm_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">risk_param</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.make_esrm_spectrum" title="Link to this definition">#</a></dt>
+<dd><p>Create a spectrum based on the exponential spectral risk measure (ESRM) for <code class="docutils literal notranslate"><span class="pre">n</span></code> samples.</p>
+<p>See [Cotter (2006)](<a class="reference external" href="https://www.sciencedirect.com/science/article/pii/S0378426606001373">https://www.sciencedirect.com/science/article/pii/S0378426606001373</a>) for more information.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>batch_size</strong> – the batch size.</p></li>
+<li><p><strong>risk_param</strong> – The <code class="docutils literal notranslate"><span class="pre">R</span></code> parameter from Cotter (2006).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>spectrum</dt><dd><p>a sorted vector of <code class="docutils literal notranslate"><span class="pre">n</span></code> weights on each training example.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 </section>
 </section>
@@ -389,15 +593,32 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-risk-measure">Create risk measure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-risk-measure">Create risk measure</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_spectral_risk_measure"><code class="docutils literal notranslate"><span class="pre">make_spectral_risk_measure()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.spectral_risk_measure_maximization_oracle"><code class="docutils literal notranslate"><span class="pre">spectral_risk_measure_maximization_oracle()</span></code></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-maximization-oracles">Dual maximization oracles</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pool-adjacent-violator-algorithm">Pool adjacent violator algorithm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pool-adjacent-violator-algorithm">Pool adjacent violator algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.l2_centered_isotonic_regression"><code class="docutils literal notranslate"><span class="pre">l2_centered_isotonic_regression()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.neg_entropy_centered_isotonic_regression"><code class="docutils literal notranslate"><span class="pre">neg_entropy_centered_isotonic_regression()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spectrums">Spectrums</a><ul class="visible nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extremile">Extremile</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superquantile">Superquantile</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-spectral-risk-measure">Exponential spectral risk measure</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extremile">Extremile</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_extremile_spectrum"><code class="docutils literal notranslate"><span class="pre">make_extremile_spectrum()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#superquantile">Superquantile</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_superquantile_spectrum"><code class="docutils literal notranslate"><span class="pre">make_superquantile_spectrum()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-spectral-risk-measure">Exponential spectral risk measure</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_esrm_spectrum"><code class="docutils literal notranslate"><span class="pre">make_esrm_spectrum()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

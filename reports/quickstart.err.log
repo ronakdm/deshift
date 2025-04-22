@@ -18,33 +18,28 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
+np.random.seed(123)
 
-import sys
-sys.path.append("../..")
-from deshift import make_spectral_risk_measure, make_superquantile_spectrum
+losses = np.random.normal(size=(batch_size,))
+weights = compute_sample_weight(losses)
+
+print(weights[np.argsort(losses)])
 ------------------
 
 
 [31m---------------------------------------------------------------------------[39m
-[31mModuleNotFoundError[39m                       Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[1][39m[32m, line 7[39m
-[32m      5[39m [38;5;28;01mimport[39;00m[38;5;250m [39m[34;01msys[39;00m
-[32m      6[39m sys.path.append([33m"[39m[33m../..[39m[33m"[39m)
-[32m----> [39m[32m7[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mdeshift[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m make_spectral_risk_measure, make_superquantile_spectrum
+[31mAssertionError[39m                            Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[4][39m[32m, line 4[39m
+[32m      1[39m np.random.seed([32m123[39m)
+[32m      3[39m losses = np.random.normal(size=(batch_size,))
+[32m----> [39m[32m4[39m weights = [43mcompute_sample_weight[49m[43m([49m[43mlosses[49m[43m)[49m
+[32m      6[39m [38;5;28mprint[39m(weights[np.argsort(losses)])
 
-[36mFile [39m[32m/opt/hostedtoolcache/Python/3.11.12/x64/lib/python3.11/site-packages/deshift/__init__.py:12[39m
-[32m      9[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mdeshift[39;00m[34;01m.[39;00m[34;01m_src[39;00m[34;01m.[39;00m[34;01mspectra[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m make_extremile_spectrum
-[32m     10[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mdeshift[39;00m[34;01m.[39;00m[34;01m_src[39;00m[34;01m.[39;00m[34;01mspectra[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m make_superquantile_spectrum
-[32m---> [39m[32m12[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mdebugpy[39;00m[34;01m.[39;00m[34;01m_src[39;00m[34;01m.[39;00m[34;01mdistributed[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m ddp_max_oracle
-[32m     14[39m __version__ = [33m"[39m[33m0.0.1.dev[39m[33m"[39m
-[32m     16[39m __all__ =[
-[32m     17[39m   [33m"[39m[33ml2_centered_isotonic_regression[39m[33m"[39m,
-[32m     18[39m   [33m"[39m[33mneg_entropy_centered_isotonic_regression[39m[33m"[39m, 
-[32m   (...)[39m[32m     24[39m   [33m"[39m[33mddp_max_oracle[39m[33m"[39m,
-[32m     25[39m ]
+[36mFile [39m[32m/opt/hostedtoolcache/Python/3.11.12/x64/lib/python3.11/site-packages/deshift/_src/spectral_risk.py:28[39m, in [36mmake_spectral_risk_measure.<locals>.max_oracle[39m[34m(losses)[39m
+[32m     27[39m [38;5;28;01mdef[39;00m[38;5;250m [39m[34mmax_oracle[39m(losses):
+[32m---> [39m[32m28[39m     [38;5;28;01massert[39;00m torch.is_tensor(losses), [33m"[39m[33m`losses` must be a PyTorch tensor[39m[33m"[39m
+[32m     29[39m     [38;5;28;01mwith[39;00m torch.no_grad():
+[32m     30[39m         device = losses.get_device()
 
-[31mModuleNotFoundError[39m: No module named 'debugpy._src'
+[31mAssertionError[39m: `losses` must be a PyTorch tensor
 
