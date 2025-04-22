@@ -9,6 +9,8 @@ from deshift._src.spectra import make_esrm_spectrum
 from deshift._src.spectra import make_extremile_spectrum
 from deshift._src.spectra import make_superquantile_spectrum
 
+from debugpy._src.distributed import ddp_max_oracle
+
 __version__ = "0.0.1.dev"
 
 __all__ =[
@@ -19,4 +21,5 @@ __all__ =[
   "make_spectral_risk_measure",
   "make_superquantile_spectrum",
   "spectral_risk_measure_maximization_oracle",
+  "ddp_max_oracle",
 ]
