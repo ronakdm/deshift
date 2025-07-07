@@ -329,6 +329,10 @@ document.write(`
 </li>
 </ul>
 </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-computations">Distributed computations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.ddp_max_oracle"><code class="docutils literal notranslate"><span class="pre">ddp_max_oracle()</span></code></a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -344,25 +348,28 @@ document.write(`
 <h1>📖 API<a class="headerlink" href="#api" title="Link to this heading">#</a></h1>
 <div class="pst-scrollable-table-container"><table class="autosummary longtable table">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.l2_centered_isotonic_regression" title="deshift.l2_centered_isotonic_regression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">l2_centered_isotonic_regression</span></code></a>(losses, spectrum)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.ddp_max_oracle" title="deshift.ddp_max_oracle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ddp_max_oracle</span></code></a>(max_oracle, losses[, src_device])</p></td>
+<td><p>Take any existing maximization oracle and apply it to multiple devices using a gather-scatter implementation within the data distributed parallel (DDP) framework.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#deshift.l2_centered_isotonic_regression" title="deshift.l2_centered_isotonic_regression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">l2_centered_isotonic_regression</span></code></a>(losses, spectrum)</p></td>
 <td><p>Solution to the isotonic regression problem when using the centered l2 loss.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#deshift.neg_entropy_centered_isotonic_regression" title="deshift.neg_entropy_centered_isotonic_regression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">neg_entropy_centered_isotonic_regression</span></code></a>(...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.neg_entropy_centered_isotonic_regression" title="deshift.neg_entropy_centered_isotonic_regression"><code class="xref py py-obj docutils literal notranslate"><span class="pre">neg_entropy_centered_isotonic_regression</span></code></a>(...)</p></td>
 <td><p>Solution to the isotonic regression problem when using the centered negative entropy loss.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.make_esrm_spectrum" title="deshift.make_esrm_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_esrm_spectrum</span></code></a>(batch_size, risk_param)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#deshift.make_esrm_spectrum" title="deshift.make_esrm_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_esrm_spectrum</span></code></a>(batch_size, risk_param)</p></td>
 <td><p>Create a spectrum based on the exponential spectral risk measure (ESRM) for <code class="docutils literal notranslate"><span class="pre">n</span></code> samples.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#deshift.make_extremile_spectrum" title="deshift.make_extremile_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_extremile_spectrum</span></code></a>(batch_size, n_draws)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.make_extremile_spectrum" title="deshift.make_extremile_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_extremile_spectrum</span></code></a>(batch_size, n_draws)</p></td>
 <td><p>Create a spectrum based on the extremile for <code class="docutils literal notranslate"><span class="pre">n</span></code> samples.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.make_spectral_risk_measure" title="deshift.make_spectral_risk_measure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_spectral_risk_measure</span></code></a>(spectrum[, ...])</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#deshift.make_spectral_risk_measure" title="deshift.make_spectral_risk_measure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_spectral_risk_measure</span></code></a>(spectrum[, ...])</p></td>
 <td><p>Create a function which computes the sample weights from a vector of losses when using a spectral risk measure ambiguity set.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#deshift.make_superquantile_spectrum" title="deshift.make_superquantile_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_superquantile_spectrum</span></code></a>(batch_size, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.make_superquantile_spectrum" title="deshift.make_superquantile_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_superquantile_spectrum</span></code></a>(batch_size, ...)</p></td>
 <td><p>Create a spectrum based on the superquantile (or conditional value-at-risk) for <code class="docutils literal notranslate"><span class="pre">n</span></code> samples.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.spectral_risk_measure_maximization_oracle" title="deshift.spectral_risk_measure_maximization_oracle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spectral_risk_measure_maximization_oracle</span></code></a>(...)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="#deshift.spectral_risk_measure_maximization_oracle" title="deshift.spectral_risk_measure_maximization_oracle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spectral_risk_measure_maximization_oracle</span></code></a>(...)</p></td>
 <td><p>Maximization oracle to compute the sample weights based on a particular spectral risk measure objective.</p></td>
 </tr>
 </tbody>
@@ -555,6 +562,31 @@ in the loss computation, i.e. <code class="docutils literal notranslate"><span c
 
 </section>
 </section>
+<section id="distributed-computations">
+<h2>Distributed computations<a class="headerlink" href="#distributed-computations" title="Link to this heading">#</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="deshift.ddp_max_oracle">
+<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">ddp_max_oracle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_oracle</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">losses</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_device</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.ddp_max_oracle" title="Link to this definition">#</a></dt>
+<dd><p>Take any existing maximization oracle and apply it to multiple devices using a gather-scatter implementation
+within the data distributed parallel (DDP) framework. Assumes that process rank is discoverable, e.g. the job is run using <cite>torchrun</cite>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_oracle</strong> – a function that consumes <code class="docutils literal notranslate"><span class="pre">n</span></code> (full-batch size) loss values and returns <code class="docutils literal notranslate"><span class="pre">n</span></code> weights (where <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">==</span> <span class="pre">micro_size</span> <span class="pre">*</span> <span class="pre">n_gpus</span></code>)</p></li>
+<li><p><strong>losses</strong> – a PyTorch tensor of <code class="docutils literal notranslate"><span class="pre">micro_size</span></code> losses</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>weights</dt><dd><p>a vector of weights of size <code class="docutils literal notranslate"><span class="pre">len(losses)</span></code> indicating the weight on each example</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
 </section>
 
 
@@ -619,6 +651,10 @@ in the loss computation, i.e. <code class="docutils literal notranslate"><span c
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_esrm_spectrum"><code class="docutils literal notranslate"><span class="pre">make_esrm_spectrum()</span></code></a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#distributed-computations">Distributed computations</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.ddp_max_oracle"><code class="docutils literal notranslate"><span class="pre">ddp_max_oracle()</span></code></a></li>
 </ul>
 </li>
 </ul>

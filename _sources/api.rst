@@ -4,6 +4,7 @@
 .. currentmodule:: deshift
 
 .. autosummary::
+  ddp_max_oracle
   l2_centered_isotonic_regression
   neg_entropy_centered_isotonic_regression
   make_esrm_spectrum
@@ -44,4 +45,7 @@ Exponential spectral risk measure
 .. autofunction:: make_esrm_spectrum
 
 
-
+Distributed computations
+------------------------
+.. autofunction:: ddp_max_oracle
+  
