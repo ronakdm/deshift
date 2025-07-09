@@ -53,6 +53,8 @@ def make_group_spectral_risk_measure(
     """
     def max_oracle(losses, group_labels):
         assert torch.is_tensor(losses), "`losses` must be a PyTorch tensor"
+        assert torch.is_tensor(group_labels), "`group_labels` must be a PyTorch tensor"
+        assert torch.isin(torch.arange(group_labels.max() + 1), group_labels).all(), "all group labels must be observed"
         with torch.no_grad():
             device = losses.get_device()
             device = device if device >= 0 else "cpu"
@@ -60,11 +62,11 @@ def make_group_spectral_risk_measure(
             # count average loss of each group
             unique_labels, labels_count = group_labels.unique(dim=0, return_counts=True)
             res = torch.zeros_like(unique_labels, dtype=torch.float).scatter_add_(0, group_labels, losses)
-            res = res / labels_count.float().unsqueeze(1)
+            res = res / labels_count.float()
+            assert len(spectrum) == len(unique_labels), "spectrum length must be equal to number of group labels"
             group_weights = spectral_risk_measure_maximization_oracle(spectrum, shift_cost, penalty, res.cpu().numpy())
 
             # renormalize weight for groups that were observed
-            group_weights[res<=1e-10] = 0.0
             group_weights /= (group_weights.sum() * labels_count)
             weights = torch.gather(group_weights, 0, group_labels)
         return weights.to(device)

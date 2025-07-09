@@ -4,6 +4,7 @@ from deshift._src.pav import neg_entropy_centered_isotonic_regression
 
 from deshift._src.spectral_risk import make_spectral_risk_measure
 from deshift._src.spectral_risk import spectral_risk_measure_maximization_oracle
+from deshift._src.spectral_risk import make_group_spectral_risk_measure
 
 from deshift._src.spectra import make_esrm_spectrum
 from deshift._src.spectra import make_extremile_spectrum
@@ -19,4 +20,5 @@ __all__ =[
   "make_spectral_risk_measure",
   "make_superquantile_spectrum",
   "spectral_risk_measure_maximization_oracle",
+  "make_group_spectral_risk_measure"
 ]
