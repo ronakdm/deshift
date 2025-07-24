@@ -50,6 +50,11 @@ def make_group_spectral_risk_measure(
     Returns:
       compute_sample_weight
         a function that maps ``n`` losses to a vector of ``n`` weights on each training example.
+
+    References:
+      Sagawa et al, `Distributionally Robust Neural Networks for Group Shifts: On the Importance of Regularization for Worst-Case Generalization <https://openreview.net/forum?id=ryxGuJrFvS>`_, 2020
+      Mehta et al, `Stochastic Optimization for Spectral Risk Measures <https://proceedings.mlr.press/v206/mehta23b.html>`_, 2023
+      Mehta et al, `Distributionally Robust Optimization with Bias and Variance Reduction <https://openreview.net/forum?id=TTrzgEZt9s&>`_, 2024
     """
     def max_oracle(losses, group_labels):
         assert torch.is_tensor(losses), "`losses` must be a PyTorch tensor"
@@ -61,10 +66,10 @@ def make_group_spectral_risk_measure(
 
             # count average loss of each group
             unique_labels, labels_count = group_labels.unique(dim=0, return_counts=True)
-            res = torch.zeros_like(unique_labels, dtype=torch.float).scatter_add_(0, group_labels, losses)
-            res = res / labels_count.float()
+            group_losses = torch.zeros_like(unique_labels, dtype=torch.float).scatter_add_(0, group_labels, losses)
+            group_losses = group_losses / labels_count.float()
             assert len(spectrum) == len(unique_labels), "spectrum length must be equal to number of group labels"
-            group_weights = spectral_risk_measure_maximization_oracle(spectrum, shift_cost, penalty, res.cpu().numpy())
+            group_weights = spectral_risk_measure_maximization_oracle(spectrum, shift_cost, penalty, group_losses.cpu().numpy())
 
             # renormalize weight for groups that were observed
             group_weights /= (group_weights.sum() * labels_count)
