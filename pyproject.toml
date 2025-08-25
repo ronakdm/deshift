@@ -5,7 +5,7 @@ build-backend = "flit_core.buildapi"
 [project]
 name = "deshift"
 dynamic = ["version"]
-description = "A library for distributionally robust learning in pytorch."
+description = "A library for distributionally robust learning in PyTorch."
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.9"
@@ -32,7 +32,7 @@ classifiers = [
 dependencies = [
   "absl-py>=0.7.1",
   "numba>=0.58.1",
-  "numpy>=1.21",
+  "numpy>=1.26, <2",
   "torch>=1.6",
 ]
 

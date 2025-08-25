@@ -55,3 +55,8 @@ html_theme_options = {
 }
 html_static_path = ['_static']
 html_title = "Deshift"
+html_logo = "_static/deshift.png"
+
+import pathlib, sys
+ROOT = pathlib.Path(__file__).resolve().parents[2]  # repo/
+sys.path.insert(0, str(ROOT))     

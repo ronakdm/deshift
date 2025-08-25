@@ -1,7 +1,7 @@
 .. deshift documentation main file
 
 Deshift
-==============
+=======
 
 This library is built to perform distributionally robust optimization (DRO) within existing PyTorch workflows with a single additional line of code.
 The focus is on spectral risk measure-based learning which is described in detail in `this AISTATS 2023 paper <https://proceedings.mlr.press/v206/mehta23b.html>`_
@@ -34,7 +34,7 @@ Once you have installed PyTorch >=1.6. (see `instructions <https://pytorch.org/g
 
 .. code-block:: bash
 
-    $ git clone git@github.com:ronakdm/drtorch.git
+    $ git clone git@github.com:ronakdm/deshift.git
     $ cd deshift
     $ pip install -e .
 
@@ -83,16 +83,20 @@ Cite
 
 If you find this package useful, or you use it in your research, please cite:
 
-.. code-block::
+.. code-block:: bibtex
 
-    @inproceedings{mehta2023stochastic,
+   @inproceedings{mehta2023stochastic,
       title={{Stochastic Optimization for Spectral Risk Measures}},
       author={Mehta, Ronak and Roulet, Vincent and Pillutla, Krishna and Liu, Lang and Harchaoui, Zaid},
-      booktitle={International Conference on Artificial Intelligence and Statistics},
-      pages={10112--10159},
+      booktitle={AISTATS},
       year={2023},
-      organization={PMLR}
-    }
+   }
+   @inproceedings{mehta2024distributionally,
+      title={{Distributionally Robust Optimization with Bias and Variance Reduction}},
+      author={Mehta, Ronak and Roulet, Vincent and Pillutla, Krishna and Harchaoui, Zaid},
+      booktitle={ICLR},
+      year={2024},
+   }
 
 Acknowledgements
 ------------------

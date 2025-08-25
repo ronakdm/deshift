@@ -12,7 +12,7 @@ root folder:
 pip install -e .
 ```
 
-Additional dependencies to run the example in `examples/train_fashion_mnist.ipynb` can be installed using `pip install -e .[examples]`. To build the docs, additional dependencies can be run using `pip install -e .[docs]`.
+Additional dependencies to run the example in `examples/train_fashion_mnist.ipynb` can be installed using `pip install -e '.[examples]'`. To build the docs, additional dependencies can be run using `pip install -e '.[docs]'`.
 
 ## Quickstart
 
@@ -46,14 +46,20 @@ We encourage and highly value community contributions.
 
 If you find this package useful, or you use it in your research, please cite:
 
-    @inproceedings{mehta2023stochastic,
-      title={{Stochastic Optimization for Spectral Risk Measures}},
-      author={Mehta, Ronak and Roulet, Vincent and Pillutla, Krishna and Liu, Lang and Harchaoui, Zaid},
-      booktitle={International Conference on Artificial Intelligence and Statistics},
-      pages={10112--10159},
-      year={2023},
-      organization={PMLR}
-    }
+```
+@inproceedings{mehta2023stochastic,
+  title={{Stochastic Optimization for Spectral Risk Measures}},
+  author={Mehta, Ronak and Roulet, Vincent and Pillutla, Krishna and Liu, Lang and Harchaoui, Zaid},
+  booktitle={AISTATS},
+  year={2023},
+}
+@inproceedings{mehta2024distributionally,
+    title={{Distributionally Robust Optimization with Bias and Variance Reduction}},
+    author={Mehta, Ronak and Roulet, Vincent and Pillutla, Krishna and Harchaoui, Zaid},
+    booktitle={ICLR},
+    year={2024},
+}
+```
 
 ## Acknowledgments
 

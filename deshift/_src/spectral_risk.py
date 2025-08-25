@@ -46,6 +46,7 @@ def make_group_spectral_risk_measure(
         which should be the same length as the number of groups.
       penalty: either 'chi2' or 'kl' indicating which f-divergence 
         to use as the dual regularizer.
+      shift_cost: the non-negative dual regularization parameter.
 
     Returns:
       compute_sample_weight
