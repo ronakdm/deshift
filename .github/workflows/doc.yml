@@ -17,7 +17,7 @@ jobs:
         with:
             python-version: "3.10"
             cache: 'pip'
-      - run: pip -m install '.[docs]'
+      - run: pip install .[docs]
       - name: Build documentation
         run: python -m sphinx -b html docs/source docs/build/html
       - name: Upload artifacts
