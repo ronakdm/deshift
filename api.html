@@ -132,8 +132,14 @@
   
   
   
+    
+    
+      
+    
+    
+    <img src="_static/deshift.png" class="logo__image only-light" alt="Deshift - Home"/>
+    <script>document.write(`<img src="_static/deshift.png" class="logo__image only-dark" alt="Deshift - Home"/>`);</script>
   
-    <p class="title logo__title">Deshift</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -304,6 +310,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-risk-measure">Create risk measure</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_spectral_risk_measure"><code class="docutils literal notranslate"><span class="pre">make_spectral_risk_measure()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.spectral_risk_measure_maximization_oracle"><code class="docutils literal notranslate"><span class="pre">spectral_risk_measure_maximization_oracle()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_group_spectral_risk_measure"><code class="docutils literal notranslate"><span class="pre">make_group_spectral_risk_measure()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-maximization-oracles">Dual maximization oracles</a><ul class="visible nav section-nav flex-column">
@@ -346,7 +353,7 @@ document.write(`
                   
   <section id="api">
 <h1>📖 API<a class="headerlink" href="#api" title="Link to this heading">#</a></h1>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table">
+<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="#deshift.ddp_max_oracle" title="deshift.ddp_max_oracle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ddp_max_oracle</span></code></a>(max_oracle, losses[, src_device])</p></td>
 <td><p>Take any existing maximization oracle and apply it to multiple devices using a gather-scatter implementation within the data distributed parallel (DDP) framework.</p></td>
@@ -366,10 +373,13 @@ document.write(`
 <tr class="row-even"><td><p><a class="reference internal" href="#deshift.make_spectral_risk_measure" title="deshift.make_spectral_risk_measure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_spectral_risk_measure</span></code></a>(spectrum[, ...])</p></td>
 <td><p>Create a function which computes the sample weights from a vector of losses when using a spectral risk measure ambiguity set.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.make_superquantile_spectrum" title="deshift.make_superquantile_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_superquantile_spectrum</span></code></a>(batch_size, ...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.make_group_spectral_risk_measure" title="deshift.make_group_spectral_risk_measure"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_group_spectral_risk_measure</span></code></a>(spectrum[, ...])</p></td>
+<td><p>Create a function which computes the sample weights for Group DRO from a vector of losses when using a spectral risk measure ambiguity set.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#deshift.make_superquantile_spectrum" title="deshift.make_superquantile_spectrum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_superquantile_spectrum</span></code></a>(batch_size, ...)</p></td>
 <td><p>Create a spectrum based on the superquantile (or conditional value-at-risk) for <code class="docutils literal notranslate"><span class="pre">n</span></code> samples.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#deshift.spectral_risk_measure_maximization_oracle" title="deshift.spectral_risk_measure_maximization_oracle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spectral_risk_measure_maximization_oracle</span></code></a>(...)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="#deshift.spectral_risk_measure_maximization_oracle" title="deshift.spectral_risk_measure_maximization_oracle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spectral_risk_measure_maximization_oracle</span></code></a>(...)</p></td>
 <td><p>Maximization oracle to compute the sample weights based on a particular spectral risk measure objective.</p></td>
 </tr>
 </tbody>
@@ -428,6 +438,34 @@ on each example in the batch.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="deshift.make_group_spectral_risk_measure">
+<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">make_group_spectral_risk_measure</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">penalty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'chi2'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_cost</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.make_group_spectral_risk_measure" title="Link to this definition">#</a></dt>
+<dd><p>Create a function which computes the sample weights for Group DRO from a vector of losses when using a spectral risk measure ambiguity set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> – a Numpy array containing the spectrum weights,
+which should be the same length as the number of groups.</p></li>
+<li><p><strong>penalty</strong> – either ‘chi2’ or ‘kl’ indicating which f-divergence
+to use as the dual regularizer.</p></li>
+<li><p><strong>shift_cost</strong> – the non-negative dual regularization parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>compute_sample_weight</dt><dd><p>a function that maps <code class="docutils literal notranslate"><span class="pre">n</span></code> losses to a vector of <code class="docutils literal notranslate"><span class="pre">n</span></code> weights on each training example.</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>Sagawa et al, <a class="reference external" href="https://openreview.net/forum?id=ryxGuJrFvS">Distributionally Robust Neural Networks for Group Shifts: On the Importance of Regularization for Worst-Case Generalization</a>, 2020
+Mehta et al, <a class="reference external" href="https://proceedings.mlr.press/v206/mehta23b.html">Stochastic Optimization for Spectral Risk Measures</a>, 2023
+Mehta et al, <a class="reference external" href="https://openreview.net/forum?id=TTrzgEZt9s&amp;">Distributionally Robust Optimization with Bias and Variance Reduction</a>, 2024</p>
+</dd></dl>
+
 </section>
 <section id="dual-maximization-oracles">
 <h2>Dual maximization oracles<a class="headerlink" href="#dual-maximization-oracles" title="Link to this heading">#</a></h2>
@@ -435,7 +473,7 @@ on each example in the batch.</p></li>
 <h3>Pool adjacent violator algorithm<a class="headerlink" href="#pool-adjacent-violator-algorithm" title="Link to this heading">#</a></h3>
 <dl class="py function">
 <dt class="sig sig-object py" id="deshift.l2_centered_isotonic_regression">
-<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">l2_centered_isotonic_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.l2_centered_isotonic_regression" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">l2_centered_isotonic_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.l2_centered_isotonic_regression" title="Link to this definition">#</a></dt>
 <dd><p>Solution to the isotonic regression problem when using the centered l2 loss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -458,7 +496,7 @@ These are the labels for isotonic regression.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="deshift.neg_entropy_centered_isotonic_regression">
-<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">neg_entropy_centered_isotonic_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.neg_entropy_centered_isotonic_regression" title="Link to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">deshift.</span></span><span class="sig-name descname"><span class="pre">neg_entropy_centered_isotonic_regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">losses</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">ndarray</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dtype</span><span class="p"><span class="pre">[</span></span><span class="pre">_ScalarType_co</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#deshift.neg_entropy_centered_isotonic_regression" title="Link to this definition">#</a></dt>
 <dd><p>Solution to the isotonic regression problem when using the centered negative entropy loss.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -629,6 +667,7 @@ within the data distributed parallel (DDP) framework. Assumes that process rank 
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#create-risk-measure">Create risk measure</a><ul class="visible nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_spectral_risk_measure"><code class="docutils literal notranslate"><span class="pre">make_spectral_risk_measure()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.spectral_risk_measure_maximization_oracle"><code class="docutils literal notranslate"><span class="pre">spectral_risk_measure_maximization_oracle()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deshift.make_group_spectral_risk_measure"><code class="docutils literal notranslate"><span class="pre">make_group_spectral_risk_measure()</span></code></a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-maximization-oracles">Dual maximization oracles</a><ul class="visible nav section-nav flex-column">

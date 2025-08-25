@@ -42,6 +42,8 @@
     <script src="_static/doctools.js?v=9bcbadda"></script>
     <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -134,8 +136,14 @@
   
   
   
+    
+    
+      
+    
+    
+    <img src="_static/deshift.png" class="logo__image only-light" alt="Deshift - Home"/>
+    <script>document.write(`<img src="_static/deshift.png" class="logo__image only-dark" alt="Deshift - Home"/>`);</script>
   
-    <p class="title logo__title">Deshift</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -340,7 +348,7 @@ Here are various examples of common spectra observed in the literature:</p>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
 <p>Once you have installed PyTorch &gt;=1.6. (see <a class="reference external" href="https://pytorch.org/get-started/locally/">instructions</a>), you can install Deshift by running</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:ronakdm/drtorch.git
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:ronakdm/deshift.git
 $<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>deshift
 $<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
@@ -379,13 +387,17 @@ We encourage and highly value community contributions.</p>
 <section id="cite">
 <h2>Cite<a class="headerlink" href="#cite" title="Link to this heading">#</a></h2>
 <p>If you find this package useful, or you use it in your research, please cite:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@inproceedings</span><span class="p">{</span><span class="n">mehta2023stochastic</span><span class="p">,</span>
-  <span class="n">title</span><span class="o">=</span><span class="p">{{</span><span class="n">Stochastic</span> <span class="n">Optimization</span> <span class="k">for</span> <span class="n">Spectral</span> <span class="n">Risk</span> <span class="n">Measures</span><span class="p">}},</span>
-  <span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Mehta</span><span class="p">,</span> <span class="n">Ronak</span> <span class="ow">and</span> <span class="n">Roulet</span><span class="p">,</span> <span class="n">Vincent</span> <span class="ow">and</span> <span class="n">Pillutla</span><span class="p">,</span> <span class="n">Krishna</span> <span class="ow">and</span> <span class="n">Liu</span><span class="p">,</span> <span class="n">Lang</span> <span class="ow">and</span> <span class="n">Harchaoui</span><span class="p">,</span> <span class="n">Zaid</span><span class="p">},</span>
-  <span class="n">booktitle</span><span class="o">=</span><span class="p">{</span><span class="n">International</span> <span class="n">Conference</span> <span class="n">on</span> <span class="n">Artificial</span> <span class="n">Intelligence</span> <span class="ow">and</span> <span class="n">Statistics</span><span class="p">},</span>
-  <span class="n">pages</span><span class="o">=</span><span class="p">{</span><span class="mi">10112</span><span class="o">--</span><span class="mi">10159</span><span class="p">},</span>
-  <span class="n">year</span><span class="o">=</span><span class="p">{</span><span class="mi">2023</span><span class="p">},</span>
-  <span class="n">organization</span><span class="o">=</span><span class="p">{</span><span class="n">PMLR</span><span class="p">}</span>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">mehta2023stochastic</span><span class="p">,</span>
+<span class="w">   </span><span class="na">title</span><span class="p">=</span><span class="s">{{Stochastic Optimization for Spectral Risk Measures}}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">author</span><span class="p">=</span><span class="s">{Mehta, Ronak and Roulet, Vincent and Pillutla, Krishna and Liu, Lang and Harchaoui, Zaid}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">booktitle</span><span class="p">=</span><span class="s">{AISTATS}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">year</span><span class="p">=</span><span class="s">{2023}</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="nc">@inproceedings</span><span class="p">{</span><span class="nl">mehta2024distributionally</span><span class="p">,</span>
+<span class="w">   </span><span class="na">title</span><span class="p">=</span><span class="s">{{Distributionally Robust Optimization with Bias and Variance Reduction}}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">author</span><span class="p">=</span><span class="s">{Mehta, Ronak and Roulet, Vincent and Pillutla, Krishna and Harchaoui, Zaid}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">booktitle</span><span class="p">=</span><span class="s">{ICLR}</span><span class="p">,</span>
+<span class="w">   </span><span class="na">year</span><span class="p">=</span><span class="s">{2024}</span><span class="p">,</span>
 <span class="p">}</span>
 </pre></div>
 </div>

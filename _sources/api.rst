@@ -10,6 +10,7 @@
   make_esrm_spectrum
   make_extremile_spectrum
   make_spectral_risk_measure
+  make_group_spectral_risk_measure
   make_superquantile_spectrum
   spectral_risk_measure_maximization_oracle
 
@@ -18,6 +19,7 @@ Create risk measure
 -------------------
 .. autofunction:: make_spectral_risk_measure
 .. autofunction:: spectral_risk_measure_maximization_oracle
+.. autofunction:: make_group_spectral_risk_measure
 
 
 Dual maximization oracles
