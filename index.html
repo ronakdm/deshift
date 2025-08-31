@@ -337,6 +337,7 @@ observed training data within each mini-batch in order to robustify models again
 <ul class="simple">
 <li><p>Implementations of the superquantile/conditional value-at-risk (CVaR), extremile, and exponential spectral risk measures.</p></li>
 <li><p>Implementations of the pool adjacent violators (PAV) algorithm for computing regularized spectral risk measures with Kullback-Leibler and Chi-Squared divergences.</p></li>
+<li><p>Functions to compute distributionally robust objectives (including for group DRO) in a backpropagation-compatible manner, amenable to standard training algorithms such as SGD and AdamW.</p></li>
 </ul>
 <p>The main idea of the method is to define a <strong>spectrum</strong>, which governs the most skewed distribution the user expects on the test distribution (as compared to the uniform distribution of the training data observed at train time).
 Here are various examples of common spectra observed in the literature:</p>
@@ -382,7 +383,7 @@ We encourage and highly value community contributions.</p>
 </section>
 <section id="authors">
 <h2>Authors<a class="headerlink" href="#authors" title="Link to this heading">#</a></h2>
-<p>This package is written and maintained by <a class="reference external" href="https://ronakdm.github.io/">Ronak Mehta</a>.</p>
+<p>This package is written and maintained by <a class="reference external" href="https://ronakdm.github.io/">Ronak Mehta</a>. The features of this package include algorithmic and theoretical contributions from Vincent Roulet, Krishna Pillutla, Lang Liu, and Zaid Harchaoui.</p>
 </section>
 <section id="cite">
 <h2>Cite<a class="headerlink" href="#cite" title="Link to this heading">#</a></h2>
