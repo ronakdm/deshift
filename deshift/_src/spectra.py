@@ -3,7 +3,7 @@
 import math
 import numpy as np
 
-def make_superquantile_spectrum(batch_size: int, tail_prob: float):
+def make_superquantile_spectrum(batch_size: int, tail_prob: float=0.5):
     """Create a spectrum based on the superquantile (or conditional value-at-risk) for ``n`` samples.
     
     Args:
@@ -35,7 +35,7 @@ def make_superquantile_spectrum(batch_size: int, tail_prob: float):
     return spectrum
 
 
-def make_extremile_spectrum(batch_size: int, n_draws: float):
+def make_extremile_spectrum(batch_size: int, n_draws: float=1.5):
     """Create a spectrum based on the extremile for ``n`` samples.
 
     The spectrum is chosen so that the expectation of the loss vector 
@@ -67,7 +67,7 @@ def make_extremile_spectrum(batch_size: int, n_draws: float):
     return spectrum
 
 
-def make_esrm_spectrum(batch_size: int, risk_param: float):
+def make_esrm_spectrum(batch_size: int, risk_param: float=1.0):
     """Create a spectrum based on the exponential spectral risk measure (ESRM) for ``n`` samples.
 
     See [Cotter (2006)](https://www.sciencedirect.com/science/article/pii/S0378426606001373) for more information.

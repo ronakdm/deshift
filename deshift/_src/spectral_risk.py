@@ -39,7 +39,7 @@ def make_group_spectral_risk_measure(
         penalty: str="chi2",
         shift_cost: float=0.0,
     ):
-    """Create a function which computes the sample weights for Group DRO from a vector of losses when using a spectral risk measure ambiguity set.
+    """Create a function which computes the sample weights for Group DRO from a vector of losses when using a spectral risk measure ambiguity set. See `Mehta (2025), Section 2.10 <https://ronakdm.github.io/files/rmehta_thesis_revision.pdf>`_ for additional technical details.
  
     Args:
       spectrum: a Numpy array containing the spectrum weights, 

@@ -10,6 +10,7 @@ observed training data within each mini-batch in order to robustify models again
 
 * Implementations of the superquantile/conditional value-at-risk (CVaR), extremile, and exponential spectral risk measures.
 * Implementations of the pool adjacent violators (PAV) algorithm for computing regularized spectral risk measures with Kullback-Leibler and Chi-Squared divergences.
+* Functions to compute distributionally robust objectives (including for group DRO) in a backpropagation-compatible manner, amenable to standard training algorithms such as SGD and AdamW.
 
 The main idea of the method is to define a **spectrum**, which governs the most skewed distribution the user expects on the test distribution (as compared to the uniform distribution of the training data observed at train time).
 Here are various examples of common spectra observed in the literature:
@@ -75,7 +76,7 @@ We encourage and highly value community contributions.
 Authors
 ------------------
 
-This package is written and maintained by `Ronak Mehta <https://ronakdm.github.io/>`_.
+This package is written and maintained by `Ronak Mehta <https://ronakdm.github.io/>`_. The features of this package include algorithmic and theoretical contributions from Vincent Roulet, Krishna Pillutla, Lang Liu, and Zaid Harchaoui.
 
 
 Cite
